@@ -1,0 +1,72 @@
+---
+id: importcsv
+title: Import a csv file
+sidebar_label: Import csv
+---
+
+Simple examples of importing a csv file.
+
+:::caution
+These are simplistic examples of importing csv files.  Better examples include methods to fix types when importing to ensure consistent dataframes (or returned objects).
+:::
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<Tabs defaultValue="sas"
+  values={[
+    { label: 'SAS', value: 'sas', },
+    { label: 'Python', value: 'py', },
+    { label: 'R', value: 'r', },
+    { label: 'Julia', value: 'julia', },
+  ]
+}>
+<TabItem value="sas">
+
+```sas
+proc import datafile="/some/path/to/a.csv"
+            out=mycsv
+            dbms=csv
+            replace ;
+run;
+```
+
+</TabItem>
+<TabItem value="py">
+
+```py
+# standard library
+import csv
+
+with open("/some/path/to/a.csv") as csvfile:
+    reader = csv.reader(csvfile)
+    for i, row in enumerate(reader):
+        print(f"row {i}: {row}")
+
+# pandas
+import pandas as pd
+
+df = pd.read_csv("/some/path/to/a.csv")
+```
+
+</TabItem>
+<TabItem value="r">
+
+```r
+library(readr)
+
+df <- read_csv("/some/path/to/a.csv")
+```
+
+</TabItem>
+<TabItem value="julia">
+
+```julia
+# queryverse
+using CSVFiles, DataFrames
+
+df = DataFrame(load("/some/path/to/a.csv"))
+```
+
+</TabItem>
+</Tabs>
