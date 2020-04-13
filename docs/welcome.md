@@ -12,7 +12,7 @@ Just want to jump into the code snippets?  Peruse the docs at left.
 Or use the search functionality to find what you are looking for (coming soon).
 
 ### Contributing
-Have an idea for an example to add?  Want to suggest a change?  Utilize the _Edit_ buttons and submit a PR on Github!
+Have an idea for an example to add?  Want to suggest a change?  Utilize the _Edit this page_ button and submit a PR on Github!
 
 ## Other Website Pages
 
