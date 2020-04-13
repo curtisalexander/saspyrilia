@@ -20,7 +20,6 @@ steps:
     restoreKeys: |
       yarn | $(Agent.OS)
       yarn
-    cacheHitVar: CACHE_RESTORED
   displayName: 'Cache Yarn packages'
 
 - task: NodeTool@0
@@ -30,13 +29,12 @@ steps:
 
 - script: |
     yarn install --frozen-lockfile
-  condition: ne(variables.CACHE_RESTORED, 'true')
   displayName: 'yarn install'
 
 - script: |
     yarn run build
   displayName: 'yarn build'
-  
+
 - task: CopyFiles@2
   inputs:
     SourceFolder: '$(Build.SourcesDirectory)/build'
