@@ -1,5 +1,7 @@
 # saspyrilia
 
+[![Build Status](https://dev.azure.com/curtisalexander/saspyrilia/_apis/build/status/curtisalexander.saspyrilia?branchName=master)](https://dev.azure.com/curtisalexander/saspyrilia/_build/latest?definitionId=7&branchName=master)
+
 This is the repository for [saspyrilia](https://www.saspyrilia.com).  The website is built using [Docusaurus 2](https://v2.docusaurus.io/), a modern static website generator.
 
 ### Installation
