@@ -33,11 +33,11 @@ const features = [
     description: (
       <>
         Examples will be continually added.  Know a better technique?
-        Believe a topic is missing?  Contribute on Github!
+        Believe a topic is missing?  Contribute on GitHub!
       </>
     ),
   },
-];
+];H
 
 function Feature({imageUrl, title, description}) {
   const imgUrl = useBaseUrl(imageUrl);
