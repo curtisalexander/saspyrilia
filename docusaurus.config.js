@@ -56,6 +56,12 @@ module.exports = {
         'sas'
       ]
     },
+    announcementBar: {
+      id: 'wip',
+      content: 'This site is brand new and still a work in progress 🚧.  Check back again shortly!',
+      backgroundColor: '#fafbfc',  // Defaults to `#fff`
+      textColor: '#091E42',  // Defaults to `#000`
+    }
   },
   presets: [
     [
