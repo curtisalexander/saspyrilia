@@ -21,7 +21,8 @@ steps:
 - script: |
     yarn install
     yarn run build
-  displayName: 'yarn install and build'
+  condition: ne(variables.CACHE_RESTORED, 'true')
+  displayName: 'yarn install'
 
 - task: Cache@2
   inputs:
@@ -29,10 +30,16 @@ steps:
     restoreKeys: |
        yarn | "$(Agent.OS)"
     path: $(YARN_CACHE_FOLDER)
-  displayName: Cache Yarn packages
+  displayName: 'Cache Yarn packages'
 
-- script: yarn --frozen-lockfile
+- script: |
+    yarn --frozen-lockfile
+  displayName: 'yarn freeze'
 
+- script: |
+    yarn run build
+  displayName: 'yarn build'
+  
 - task: CopyFiles@2
   inputs:
     SourceFolder: '$(Build.SourcesDirectory)/build'
