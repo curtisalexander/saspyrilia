@@ -37,7 +37,7 @@ const features = [
       </>
     ),
   },
-];H
+];
 
 function Feature({imageUrl, title, description}) {
   const imgUrl = useBaseUrl(imageUrl);
