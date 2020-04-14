@@ -29,11 +29,11 @@ steps:
 
 - script: |
     yarn install --frozen-lockfile
-  displayName: 'yarn install'
+  displayName: 'Run yarn install'
 
 - script: |
     yarn run build
-  displayName: 'yarn build'
+  displayName: 'Runn yarn build'
 
 - task: CopyFiles@2
   inputs:
@@ -41,11 +41,11 @@ steps:
     Contents: '**/*'
     TargetFolder: '$(Build.ArtifactStagingDirectory)/build'
     CleanTargetFolder: true
-  displayName: 'copy files'
+  displayName: 'Copy build directory to artifact staging directory'
 
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'drop'
     publishLocation: 'Container'
-  displayName: 'publish build artifact'
+  displayName: 'Publish build artifact'
