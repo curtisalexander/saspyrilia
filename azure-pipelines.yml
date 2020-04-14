@@ -33,7 +33,7 @@ steps:
 
 - script: |
     yarn run build
-  displayName: 'Runn yarn build'
+  displayName: 'Run yarn build'
 
 - task: CopyFiles@2
   inputs:
