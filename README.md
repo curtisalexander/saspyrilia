@@ -29,3 +29,6 @@ This command generates static content into the `build` directory and can be serv
 ### Deployment
 
 Deploy to [Azure static hosting](https://docs.microsoft.com/en-us/azure/storage/blobs/storage-blob-static-website).
+
+### Colophon
+For more information on how the website is built, see the [Colophon](https://www.saspyrilia.com/docs/colophon) page.
