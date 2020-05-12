@@ -14,5 +14,12 @@ module.exports = {
         'io/importcsv'
       ]
     },
+    {
+      type: 'category',
+      label: 'SQL',
+      items: [
+        'sql/parameterizequery'
+      ]
+    },
   ]
 };
