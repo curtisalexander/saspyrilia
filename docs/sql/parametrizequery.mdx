@@ -1,0 +1,93 @@
+---
+id: parameterizequery
+title: Parameterize a SQL query
+sidebar_label: Parameterize query
+keywords:
+  - parameterize
+  - sql
+---
+
+Example of parameterizing a SQL query.
+
+:::caution
+The examples do not attempt to prevent [SQL injection attacks](https://en.wikipedia.org/wiki/SQL_injection).  It is assumed that the user is simply querying a database interactively as part of an analytic project.
+:::
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<Tabs defaultValue="sas"
+  values={[
+    { label: 'SAS', value: 'sas', },
+    { label: 'Python', value: 'py', },
+    { label: 'R', value: 'r', },
+    { label: 'Hive', value: 'hive', },
+  ]
+}>
+<TabItem value="sas">
+
+```sas
+%let car = ACURA ;
+
+proc sql noprint;
+  create table &car._ds as
+  select *
+  from sashelp.cars
+  where upcase(make) = "&car."
+  ;
+quit;
+```
+
+</TabItem>
+<TabItem value="py">
+
+```py
+# conda install pyodbc
+# pip install pyodbc
+import pyodbc
+
+cnxn = pyodbc.connect('DSN=SomeDSN', autcommit=True)
+crsr = cnxn.cursor()
+
+crsr.execute("""
+select *
+from cars
+where upper(make) = ?
+""", 'ACURA')
+
+# fetch
+
+crsr.close()
+cnxn.close()
+```
+
+</TabItem>
+<TabItem value="r">
+
+```r
+# install.packages(c("DBI", "odbc"))
+
+con <- DBI::dbConnect(odbc::odbc(), "SomeDSN")
+
+cars <- DBI::dbSendQuery(con, "select * from cars where upper(make) = ?")
+DBI::dbBind(cars, list("ACURA"))
+
+# fetch
+
+DBI::dbClearResult(cars)
+DBI::dbDisconnect(con)
+```
+
+</TabItem>
+<TabItem value="hive">
+
+```sql
+set car = 'ACURA';
+
+select *
+from cars
+where upper(make) = '${hiveconf:car}'
+```
+
+</TabItem>
+</Tabs>
