@@ -1,0 +1,50 @@
+---
+id: doctemplate
+title: Template for creating a new doc
+sidebar_label: Doc Template
+keywords:
+  - template
+---
+
+Simple examples of doing something in code.
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<Tabs defaultValue="sas"
+  values={[
+    { label: 'SAS', value: 'sas', },
+    { label: 'Python', value: 'py', },
+    { label: 'R', value: 'r', },
+    { label: 'Julia', value: 'julia', },
+  ]
+}>
+<TabItem value="sas">
+
+```sas
+* do something in SAS ;
+```
+
+</TabItem>
+<TabItem value="py">
+
+```py
+# do something in Python
+```
+
+</TabItem>
+<TabItem value="r">
+
+```r
+# do something in R
+```
+
+</TabItem>
+<TabItem value="julia">
+
+```julia
+# do something in Julia
+```
+
+</TabItem>
+</Tabs>
