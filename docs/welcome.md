@@ -7,20 +7,18 @@ sidebar_label: Welcome
 Welcome to saspyrilia!
 
 ## [Docs](/docs/welcome)
-Just want to jump into the code snippets?  Peruse the docs at left.
-
-Or use the search functionality to find what you are looking for (coming soon).
+Want the code snippets?  Peruse the [docs](/docs/welcome) or utilize the search functionality.
 
 ### Contributing
-Have an idea for an example to add?  Want to suggest a change?  Utilize the _Edit this page_ button and submit a PR on Github!
+Have an idea for an example?  Want to suggest a change?  Utilize the _Edit this page_ button and submit a PR on GitHub!
 
-## Other Website Pages
+## Other Pages
 
 ### [Blog](/blog)
-Interested in longer form articles, with more detail (and even more opinions)?  Head over to the blog.
+Interested in longer form articles, with more detail?  Head over to the [blog](/blog).
 
 ### [About](/about)
-Why the name saspyrilia?  See the about page.
+Why the name saspyrilia?  See the [about](/about) page.
 
 ### [Colophon](/colophon)
-How is this site created?  That is the purpose of the colophon page.
+How is this site created?  That is the purpose of the [colophon](/colophon) page.
