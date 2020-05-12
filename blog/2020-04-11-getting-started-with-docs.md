@@ -25,3 +25,6 @@ Edit `sidebar.js` by adding the new document's `id` to the `items` list so that 
 :::note
 Remember that ids are a concatenation of path and the `id` within the Markdown front matter.
 :::
+
+### Example
+See [doc template](../docs/_doctemplate) for an example.
