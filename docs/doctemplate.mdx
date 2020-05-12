@@ -11,7 +11,11 @@ Simple examples of doing something in code.
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-<Tabs defaultValue="sas"
+<Tabs
+  defaultValue={(() => {
+    let langs = ['sas', 'py', 'r', 'julia'];
+    return(langs[Math.floor(Math.random()*langs.length)]);
+  })()}
   values={[
     { label: 'SAS', value: 'sas', },
     { label: 'Python', value: 'py', },
