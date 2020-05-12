@@ -52,8 +52,10 @@ module.exports = {
       additionalLanguages: [
         'julia',
         'powershell',
+        'python',
         'r',
-        'sas'
+        'sas',
+        'sql'
       ]
     },
     announcementBar: {
