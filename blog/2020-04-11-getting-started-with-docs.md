@@ -27,4 +27,4 @@ Remember that ids are a concatenation of path and the `id` within the Markdown f
 :::
 
 ### Example
-See [doc template](../docs/_doctemplate) for an example.
+See [doc template](../docs/doctemplate) for an example.
