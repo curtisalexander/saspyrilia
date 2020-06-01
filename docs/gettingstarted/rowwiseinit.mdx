@@ -1,0 +1,124 @@
+---
+id: rowwiseinit
+title: Creating a dataset rowwise
+sidebar_label: Rowwise Init
+keywords:
+  - gettingstarted
+---
+
+Creating an example dataset rowwise to enable testing.  The `SAS`, `Python`, `R`, and `Julia` examples all return a dataset / dataframe.  The `bash` example creates a csv file that can be [imported](../io/importcsv) into any of these languages or simply manipulated with other shell commands.
+
+[Examples of fruit](https://en.wikibooks.org/wiki/Wikijunior:Fruit_Alphabet/Complete) for creating the dataset.
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<Tabs
+  defaultValue={(() => {
+    let langs = ['sas', 'py', 'r', 'julia', 'bash'];
+    return(langs[Math.floor(Math.random()*langs.length)]);
+  })()}
+  values={[
+    { label: 'SAS', value: 'sas', },
+    { label: 'Python', value: 'py', },
+    { label: 'R', value: 'r', },
+    { label: 'Julia', value: 'julia', },
+    { label: 'Bash', value: 'bash', },
+  ]
+}>
+<TabItem value="sas">
+
+```sas
+data person ;
+input name $10. fruit_veg $20. treat $20. age ;
+/*
+----+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8----+----9----+----0
+*/
+datalines4;
+Alice     apple               apple pie           10
+Balin     banana              bananas foster      53
+Cal       carrot              carrot cake         34
+Dara      dates               doughnut            83
+Ezekiel   elderberry          elderberry tart     4
+Frances   fig                 fig bars            34
+;;;;
+run;
+```
+
+</TabItem>
+<TabItem value="py">
+
+```py
+import pandas as pd
+
+person = pd.DataFrame(
+    [
+        ("Alice", "apple", "apple pie", 10),
+        ("Balin", "banana", "bananas foster", 53),
+        ("Cal", "carrot", "carrot cake", 34),
+        ("Dara", "dates", "doughnut", 83),
+        ("Ezekiel", "elderberry", "elderberry tart", 4),
+        ("Frances", "fig", "fig bars", 34),
+    ],
+    columns=("name", "fav_fruit_veg", "fav_treat", "age"),
+)
+```
+
+</TabItem>
+<TabItem value="r">
+
+```r
+library(tibble)
+
+person <- tibble::tribble(
+  ~names, ~fav_fruit_veg, ~fav_treat, ~age,
+  "Alice", "apple", "apple pie", 10,
+  "Balin", "banana", "bananas foster", 53,
+  "Cal", "carrot", "carrot cake", 34,
+  "Dara", "dates", "doughnut", 83,
+  "Ezekiel", "elderberry", "elderberry tart", 4,
+  "Frances", "fig", "fig bars", 34
+)
+```
+
+</TabItem>
+<TabItem value="julia">
+
+```julia
+using DataFrames
+
+person_data = [
+    ("Alice", "apple", "apple pie", 10),
+    ("Balin", "banana", "bananas foster", 53),
+    ("Cal", "carrot", "carrot cake", 34),
+    ("Dara", "dates", "doughnut", 83),
+    ("Ezekiel", "elderberry", "elderberry tart", 4),
+    ("Frances", "fig", "fig bars", 34)
+]
+
+person = DataFrame(name = String[], fav_fruit_veg = String[], fav_treat = String[], age = Int[])
+for p in person_data
+    push!(person, p)
+end
+```
+
+</TabItem>
+
+<TabItem value="bash">
+
+```bash
+#!/usr/bin/env bash
+
+cat <<EOF > person.csv
+name, fav_fruit_veg, fav_treat, age
+"Alice","apple","apple pie",10,
+"Balin","banana","bananas foster",53,
+"Cal","carrot","carrot cake",34,
+"Dara","dates","doughnut",83,
+"Ezekiel","elderberry","elderberry tart",4,
+"Frances","fig","fig bars",34
+EOF
+```
+
+</TabItem>
+</Tabs>

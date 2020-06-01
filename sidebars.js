@@ -9,6 +9,13 @@ module.exports = {
     },
     {
       type: 'category',
+      label: 'Getting Started',
+      items: [
+        'gettingstarted/rowwiseinit'
+      ]
+    },
+    {
+      type: 'category',
       label: 'IO',
       items: [
         'io/importcsv'
