@@ -7,10 +7,10 @@ sidebar_label: Welcome
 Welcome to saspyrilia!
 
 ## [Docs](/docs/welcome)
-Want the code snippets?  Peruse the [docs](/docs/welcome) or utilize the search functionality.
+Looking for code snippets?  Peruse the [docs](/docs/welcome) or utilize the search functionality.
 
 ### Contributing
-Have an idea for an example?  Want to suggest a change?  Utilize the _Edit this page_ button and submit a PR on GitHub!
+Have an idea for an example?  Want to suggest a change?  Utilize the _Edit this page_ button and submit a PR on GitHub.
 
 ## Other Pages
 
