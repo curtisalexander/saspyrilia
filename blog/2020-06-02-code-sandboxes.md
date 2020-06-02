@@ -1,0 +1,281 @@
+---
+id: codesandboxes
+title: Code Sandboxes
+author: Curtis Alexander
+author_url: https://github.com/curtisalexander
+author_title: saspyrilia connoisseur
+author_image_url: https://avatars1.githubusercontent.com/u/6118829?v=4
+tags: [docusaurus]
+---
+
+Setting up code sandboxes.
+
+<!--truncate-->
+
+In order to build and test out the code on this page, I have setup code sandboxes for each of the major language detailed on the site: SAS, Python, R, and Julia.  The details below are how I setup these sandboxes on a Mac.  Setup on Windows or Linux would differ only slightly.
+
+In addition to the documentation below, the [saspyrilia-sandboxes](https://github.com/curtisalexander/saspyrilia-sandboxes) repository contains many of the actual code examples tested before being moved over to this site.
+
+## SAS
+Follow the instructions provided by SAS.
+
+https://www.sas.com/en_us/software/university-edition/download-software.html
+
+In summary:
+- Downloading and installing [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
+- Downloading the SAS University Edition image (requires a SAS login)
+- Import the just downloaded image into VirtualBox
+- Configure the `myfolders` directory
+    - The documentation at the site above notes the need to create a `SASUniversityEdition` directory; this is not actually needed.  In fact the `myfolders` directory is not needed either.  But to persist code / data on the filesystem, the expectation is that a `myfolders` directory is used.  For more details see the [FAQ](https://support.sas.com/software/products/university-edition/faq/shared_folder_whatis.htm).
+- Start up the software from within VirtualBox
+
+<!-- ### SAS Troubleshooting
+To get my network adapter working appropriately within VirtualBox, I had to follow the instructions below.
+
+https://support.sas.com/software/products/university-edition/faq/trouble_VPN.htm
+
+I had to navigate to `~/VirtualBox VMs/SAS University Edition` and then submit the following command.
+```
+VBoxManage modifyvm "SAS University Edition" --natdnshostresolver1 on
+```
+-->
+
+### VirtualBox Troubleshooting
+I had an issue with VirtualBox on macOS where I received the following error &mdash; `Kernel driver not installed`.  The page below helped to fix.
+
+https://www.howtogeek.com/658047/how-to-fix-virtualboxs-%E2%80%9Ckernel-driver-not-installed-rc-1908-error/
+
+
+## Python
+See the below for details on [managing conda environments](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html).
+
+### Init
+Ensure your shell is configured for working with `conda`.
+```
+conda init <shellname>
+```
+
+Use a specific location for an environment
+```
+conda create --prefix ./envs
+```
+
+Create an `environment.yml` file.  First ensure you have [activated](#activate) your environment.
+```
+conda env export > environment.yml
+```
+
+Now edit the `environment.yml` file to utilize relative directory paths instead of absolute paths.  Give the environment an appropriate name &mdash; for this example, I named my environment `sandbox`.
+
+Make sure to add the `envs` directory to your `.gitignore` file.
+
+### Activate
+Activate your environment
+```
+conda activate ./envs
+```
+
+### Add and Remove Dependencies
+Again, ensure you have [activated](#activate) your environment.
+
+Edit the `environment.yml` file by adding needed dependencies.  Dependencies can be added simply with the package required.  For a more complex setup package versions may be included.  Add dependencies under the `dependencies` key in the yaml file.
+
+Run the following to build the environment based on your `environment.yml` file.  Note that with the `--prune` option, packages not listed will be removed.
+```
+conda env update --prefix ./envs --file environment.yml --prune
+```
+
+### Identical Environment
+Export the environment, with detailed versioning information, to an explicit specification file.  As the conda documentation notes, an explicit specification file is not cross platform.
+
+```
+conda list --explicit > spec-file.txt
+```
+
+
+## R
+Building an environment for R involves utilization of [renv](https://github.com/rstudio/renv).
+
+### Install `renv`
+Install `renv` to your global set of packages.  This is the only new package installed to the global location.
+```R
+install.packages("renv")
+```
+
+To see where your libraries live on disk, run `.libPaths()` from within R.
+
+### RStudio Project
+Setup directory as an [RStudio Project](https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects).
+
+### `renv` workflow
+A simple outline to the `renv` workflow can be found within the library's [documentation](https://rstudio.github.io/renv/).
+
+In summary:
+- Initalize via `renv::init()`
+- Install packages using either `renv::install() or install.packages()`
+- Snapshot packages via `renv::snapshot()`
+- Rinse and repeat
+
+## Julia
+The general workflow utilizes [Revise.jl](https://timholy.github.io/Revise.jl/stable/).  This workflow is outlined in two key places:
+- [Revise documentation](https://timholy.github.io/Revise.jl/stable/cookbook/)
+- [Julia documentation](https://docs.julialang.org/en/v1/manual/workflow-tips/#Revise-based-workflows-1)
+
+### Add [Revise.jl](https://timholy.github.io/Revise.jl/stable/)
+Initial setup requires adding `Revise.jl`.  For ease, add to the global environment.
+
+```
+pkg> add Revise
+```
+
+Then setup `Revise` to launch at startup.  Edit `.julia/config/startup.jl` to use `Revise`.  Note that at the time of writing I am using Julia `1.4.x`.
+
+```julia
+# Julia 1.5+ and Revise 2.6+
+# try
+#     using Revise
+# catch e
+#     @warn(e.msg)
+# end
+
+# Earlier versions of Revise and/or Julia
+atreplinit() do repl
+    try
+        @eval using Revise
+        @async Revise.wait_steal_repl_backend()
+    catch e
+        @warn(e.msg)
+    end
+end
+```
+
+### Initial Package Setup
+The below only is needed for creating the initial package.
+
+#### Generate Package
+Per the instruction for a [throw away project](https://docs.julialang.org/en/v1/manual/workflow-tips/#Revise-based-workflows-1) generate a new package using `Pkg`.
+
+First, `cd` into the appropriate directory.  Then startup a Julia REPL. From the Julia REPL enter into the `Pkg` REPL using `]`.  Your prompt will change to `pkg>`.
+
+Now generate the actual package.
+
+```
+pkg> generate MyPkg
+```
+
+Exiting requires `Ctrl+C` or using `Backspace`.
+
+#### Use Package
+Now use the actual package and test that it was setup appropriately.
+
+```julia
+using MyPkg
+MyPkg.greet()
+```
+
+### Work with Dependencies
+If need to add or remove packages, utilize the flow below.
+
+#### `activate` Package
+`cd` into the package directory (the directory containing the `Project.toml` file).
+
+Start a Julia REPL and then `activate` the package.
+
+```julia
+using Pkg
+Pkg.activate(".")
+```
+
+#### Add / Remove packages
+Now drop into the `Pkg` REPL using `]` and add or remove any packages needed.
+
+```
+pkg> add DataFrames
+pkg> update; precompile
+```
+
+### Workflow
+The below is a general workflow assuming no further packages need to be added.
+
+#### `activate` package
+Start a Julia REPL and then `activate` the package.
+
+```julia
+using Pkg
+Pkg.activate("MyPkg")
+```
+
+#### Edit Source Code
+Finally, you are ready to edit source files!  `cd` into the new package directory.
+
+```bash
+cd /some/path/MyPkg
+```
+
+Edit the file `src/MyPkg.jl`.  This file is being tracked by `Revise` and thus it can serve as a file runner where it points to other source files.
+
+For example, within the file `src/MyPkg.jl` reference another source file.
+
+```julia
+module MyPkg
+include("Tmp.jl")
+
+end
+```
+
+#### Test Source Code
+Again, referencing the [Revise cookbook](https://timholy.github.io/Revise.jl/stable/cookbook/), enter the below to use the package.
+
+```julia
+using MyPkg
+```
+
+Finally, utilize your REPL to validate the changes!
+
+```julia
+MyPkg.SomeOtherModule.func()
+```
+
+To force a refresh, use the following.
+
+```julia
+revise(MyPkg)
+```
+
+<!--## Setup `PkgTemplates`
+Using the [Package-centric workflow](https://timholy.github.io/Revise.jl/stable/cookbook/#Package-centric-usage-1) notes the need to setup [PkgTemplates](https://invenia.github.io/PkgTemplates.jl/stable/).
+
+First, ensure `PkgTemplates` has been added as a package.
+
+From the Julia REPL enter into the `pkg` REPL using `]`.  Your prompt will change to `pkg>`.
+
+```
+pkg> add PkgTemplates
+pkg> update; precompile
+```
+
+Exiting requires `Ctrl+C` or using `Backspace`.
+
+## Setup development package with `PkgTemplates`
+Now follow the [Revise documentation](https://timholy.github.io/Revise.jl/stable/cookbook/) for utilizing `PkgTemplates`.
+
+```
+using PkgTemplates
+t = Template()
+t("MyPkg")  # in lieu of generate("MyPkg", t)
+```
+
+Note that for this work, I had to add the following to my `.gitconfig` file.
+
+```
+[github]
+    user = myusername
+```
+
+Thus my new development package is now stored at `~/.julia/dev/MyPkg`.  The `Manifest.toml` and `Project.toml` files are contained within.
+-->
+
+### Artifacts
+Although I have not used the functionality, it looks to be quite interesting.
+
+https://julialang.github.io/Pkg.jl/v1.4/artifacts/
