@@ -22,7 +22,7 @@ If implementing an example with multiple languages, see the [docusaurus document
 ### `sidebar.js` file
 Edit `sidebar.js` by adding the new document's `id` to the `items` list so that the document appears in the left sidebar.
 
-:::note
+:::info
 Remember that ids are a concatenation of path and the `id` within the Markdown front matter.
 :::
 
