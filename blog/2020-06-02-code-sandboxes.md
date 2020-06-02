@@ -12,7 +12,7 @@ Setting up code sandboxes.
 
 <!--truncate-->
 
-In order to build and test out the code on this page, I have setup code sandboxes for each of the major language detailed on the site: SAS, Python, R, and Julia.  The details below are how I setup these sandboxes on a Mac.  Setup on Windows or Linux would differ only slightly.
+In order to build and test out the code on this page, I have setup code sandboxes for each of the major languages detailed on the site: SAS, Python, R, and Julia.  The details below are how I setup these sandboxes on a Mac.  Setup on Windows or Linux would differ only slightly.
 
 In addition to the documentation below, the [saspyrilia-sandboxes](https://github.com/curtisalexander/saspyrilia-sandboxes) repository contains many of the actual code examples tested before being moved over to this site.
 
