@@ -1,16 +1,16 @@
 ---
-id: importcsv
+id: readcsv
 title: Import a csv file
-sidebar_label: Import csv
+sidebar_label: Read csv
 keywords:
   - io
   - csv
 ---
 
-Simple examples of importing a csv file.
+Simple examples of reading in a csv file.
 
 :::note
-These are simplistic examples of importing csv files.  Better examples include methods to fix types when importing to ensure consistent dataframes (or returned objects).
+These are simplistic examples of reading csv files.  Better examples include methods to fix [data types](https://en.wikipedia.org/wiki/Data_type) (and lengths) when reading to ensure consistent dataframes (or returned objects).
 :::
 
 import Tabs from '@theme/Tabs';
@@ -18,7 +18,7 @@ import TabItem from '@theme/TabItem';
 
 <Tabs
   defaultValue={(() => {
-    let langs = ['sas', 'py', 'r', 'julia'];
+    let langs = ['sas', 'py', 'r', 'julia', 'powershell'];
     return(langs[Math.floor(Math.random()*langs.length)]);
   })()}
   values={[
@@ -26,12 +26,13 @@ import TabItem from '@theme/TabItem';
     { label: 'Python', value: 'py', },
     { label: 'R', value: 'r', },
     { label: 'Julia', value: 'julia', },
+    { label: 'PowerShell', value: 'powershell', },
   ]}
 >
 <TabItem value="sas">
 
 ```sas
-proc import datafile="/some/path/to/a.csv"
+proc import datafile="/some/path/to/person.csv"
             out=ds
             dbms=csv
             replace ;
@@ -45,7 +46,7 @@ run;
 # standard library
 import csv
 
-with open("/some/path/to/a.csv") as csvfile:
+with open("/some/path/to/person.csv") as csvfile:
     reader = csv.reader(csvfile)
     for i, row in enumerate(reader):
         print(f"row {i}: {row}")
@@ -53,7 +54,7 @@ with open("/some/path/to/a.csv") as csvfile:
 # pandas
 import pandas as pd
 
-df = pd.read_csv("/some/path/to/a.csv")
+df = pd.read_csv("/some/path/to/person.csv")
 ```
 
 </TabItem>
@@ -62,17 +63,23 @@ df = pd.read_csv("/some/path/to/a.csv")
 ```r
 library(readr)
 
-df <- read_csv("/some/path/to/a.csv")
+df <- read_csv("/some/path/to/person.csv")
 ```
 
 </TabItem>
 <TabItem value="julia">
 
 ```julia
-# queryverse
 using CSVFiles, DataFrames
 
-df = DataFrame(load("/some/path/to/a.csv"))
+df = DataFrame(load("/some/path/to/person.csv"))
+```
+
+</TabItem>
+<TabItem value="powershell">
+
+```powershell
+$df = Import-Csv /some/path/to/person.csv
 ```
 
 </TabItem>

@@ -18,7 +18,7 @@ module.exports = {
       type: 'category',
       label: 'IO',
       items: [
-        'io/importcsv'
+        'io/readcsv'
       ]
     },
     {
