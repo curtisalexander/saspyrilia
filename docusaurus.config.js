@@ -48,8 +48,13 @@ module.exports = {
       copyright: `Copyright © ${new Date().getFullYear()} Curtis Alexander<br/>Built with Docusaurus`,
     },
     prism: {
+      // https://github.com/FormidableLabs/prism-react-renderer/tree/master/src/themes
       // theme: require('prism-react-renderer/themes/oceanicNext'),
+      // theme: require('prism-react-renderer/themes/nightOwl'),
+      // theme: require('prism-react-renderer/themes/palenight'),
+      theme: require('prism-react-renderer/themes/vsDark'),
       additionalLanguages: [
+        'bash',
         'julia',
         'powershell',
         'python',
