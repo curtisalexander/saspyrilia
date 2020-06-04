@@ -16,7 +16,23 @@ In order to build and test out the code on this page, I have setup code sandboxe
 
 In addition to the documentation below, the [saspyrilia-sandboxes](https://github.com/curtisalexander/saspyrilia-sandboxes) repository contains many of the actual code examples tested before being moved over to this site.
 
-## SAS
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<Tabs
+  defaultValue={(() => {
+    let langs = ['sas', 'py', 'r', 'julia'];
+    return(langs[Math.floor(Math.random()*langs.length)]);
+  })()}
+  values={[
+    { label: 'SAS', value: 'sas', },
+    { label: 'Python', value: 'py', },
+    { label: 'R', value: 'r', },
+    { label: 'Julia', value: 'julia', },
+  ]
+}>
+<TabItem value="sas">
+
 Follow the instructions provided by SAS.
 
 https://www.sas.com/en_us/software/university-edition/download-software.html
@@ -45,8 +61,9 @@ I had an issue with VirtualBox on macOS where I received the following error &md
 
 https://www.howtogeek.com/658047/how-to-fix-virtualboxs-%E2%80%9Ckernel-driver-not-installed-rc-1908-error/
 
+</TabItem>
+<TabItem value="py">
 
-## Python
 See the below for details on [managing conda environments](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html).
 
 ### Init
@@ -92,8 +109,9 @@ Export the environment, with detailed versioning information, to an explicit spe
 conda list --explicit > spec-file.txt
 ```
 
+</TabItem>
+<TabItem value="r">
 
-## R
 Building an environment for R involves utilization of [renv](https://github.com/rstudio/renv).
 
 ### Install `renv`
@@ -114,9 +132,11 @@ In summary:
 - Initalize via `renv::init()`
 - Install packages using either `renv::install() or install.packages()`
 - Snapshot packages via `renv::snapshot()`
-- Rinse and repeat
+- Repeat
 
-## Julia
+</TabItem>
+<TabItem value="julia">
+
 The general workflow utilizes [Revise.jl](https://timholy.github.io/Revise.jl/stable/).  This workflow is outlined in two key places:
 - [Revise documentation](https://timholy.github.io/Revise.jl/stable/cookbook/)
 - [Julia documentation](https://docs.julialang.org/en/v1/manual/workflow-tips/#Revise-based-workflows-1)
@@ -279,3 +299,6 @@ Thus my new development package is now stored at `~/.julia/dev/MyPkg`.  The `Man
 Although I have not used the functionality, it looks to be quite interesting.
 
 https://julialang.github.io/Pkg.jl/v1.4/artifacts/
+
+</TabItem>
+</Tabs>
