@@ -1,0 +1,105 @@
+---
+id: splitapplycombine
+title: Split Apply Combine
+sidebar_label: Split Apply Combine
+keywords:
+  - analysis
+  - summarize
+---
+
+Examples of applying a [split apply combine](https://vita.had.co.nz/papers/plyr.html) strategy to data.  Sometimes also referred to a **group by** strategy.
+
+Makes use of the [person](gettingstarted/rowwiseinit) dataset / dataframe.
+
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<Tabs
+  defaultValue={(() => {
+    let langs = ['sas', 'py', 'r', 'julia'];
+    return(langs[Math.floor(Math.random()*langs.length)]);
+  })()}
+  values={[
+    { label: 'SAS', value: 'sas', },
+    { label: 'Python', value: 'py', },
+    { label: 'R', value: 'r', },
+    { label: 'Julia', value: 'julia', },
+  ]
+}>
+<TabItem value="sas">
+
+```sas
+* sql ;
+proc sql noprint;
+  create table sweet_tooth_avg_age as
+  select  sweet_tooth
+         ,count(age) as age_cnt
+         ,avg(age) as age_avg
+  from person
+  group by sweet_tooth
+  ;
+quit;
+
+* means ;
+proc means data=person nway noprint ;
+  class sweet_tooth ;
+  var age ;
+  output out=sweet_tooth_avg_age2(drop=_type_ rename=(_freq_=age_cnt))
+    mean=age_avg
+  ;
+run;
+```
+
+</TabItem>
+<TabItem value="py">
+
+```py
+import pandas as pd
+
+sweet_tooth_by_age = \
+    person.groupby("sweet_tooth") \
+        .agg(age_cnt=pd.NamedAgg(column="age", aggfunc="count"),
+             age_avg=pd.NamedAgg(column="age", aggfunc="mean"))
+```
+
+</TabItem>
+<TabItem value="r">
+
+```r
+library(dplyr)
+
+sweet_tooth_by_age <- person %>%
+  group_by(sweet_tooth) %>%
+  summarise(age_cnt = n(),
+            age_mean = mean(age),
+            .groups = "keep")
+```
+
+</TabItem>
+<TabItem value="julia">
+
+```julia
+using DataFrames, Query, Statistics
+
+# DataFrames
+sweet_tooth_by_age = combine(groupby(person, :sweet_tooth),
+                             nrow => :age_cnt,
+                             :age => mean => :age_avg)
+
+# Query - stand alone
+sweet_tooth_by_age2 = person |>
+    @groupby(_.sweet_tooth) |>
+    @map({sweet_tooth=key(_), age_cnt=length(_), age_avg=mean(_.age)}) |>
+    DataFrame
+
+# Query - LINQ
+sweet_tooth_by_age3 = @from i in person begin
+    @group i by i.sweet_tooth into g
+    @select {sweet_tooth=key(g), age_cnt=length(g), age_avg=mean(g.age)}
+    @collect DataFrame
+end
+```
+
+</TabItem>
+</Tabs>

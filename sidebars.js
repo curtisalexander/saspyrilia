@@ -9,6 +9,13 @@ module.exports = {
     },
     {
       type: 'category',
+      label: 'Analysis',
+      items: [
+        'analysis/splitapplycombine'
+      ]
+    },
+    {
+      type: 'category',
       label: 'Getting Started',
       items: [
         'gettingstarted/rowwiseinit'
