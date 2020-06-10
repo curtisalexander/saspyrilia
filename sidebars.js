@@ -35,5 +35,12 @@ module.exports = {
         'sql/parameterizequery'
       ]
     },
+    {
+      type: 'category',
+      label: 'Wrangling',
+      items: [
+        'wrangling/stringsplitting'
+      ]
+    },
   ]
 };
