@@ -96,13 +96,25 @@ first_fruit <- stringr::str_split_n(fruit_string, ",", 1)
 
 # split string on comma returning all elements (using strsplit)
 fruit_string <- "apple, banana, carrot"
+<<<<<<< HEAD
 fruits <- strsplit(fruit_string, ",", fixed = TRUE)[[1]] %>%
   purrr::map_chr(stringr::str_trim)
+||||||| f2039c2
+first_fruit <- strsplit(fruit_string, ",", fixed = TRUE)[[1]]
+=======
+fruits <- strsplit(fruit_string, ",", fixed = TRUE)[[1]]
+>>>>>>> 6a206f30e12d78aeb7c79d84eaf4c8574acd1c8b
 
 # split string on comma returning all elements (using stringr)
 fruit_string <- "apple, banana, carrot"
+<<<<<<< HEAD
 fruits <- stringr::str_split(fruit_string, ",")[[1]] %>%
   purrr::map_chr(stringr::str_trim)
+||||||| f2039c2
+first_fruit <- stringr::str_split(fruit_string, ",")[[1]]
+=======
+fruits <- stringr::str_split(fruit_string, ",")[[1]]
+>>>>>>> 6a206f30e12d78aeb7c79d84eaf4c8574acd1c8b
 ```
 
 </TabItem>
