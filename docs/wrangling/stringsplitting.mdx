@@ -31,55 +31,35 @@ import TabItem from '@theme/TabItem';
 * split string on comma returning first element ;
 data _null_;
   fruit_string = "apple, banana, carrot";
-  first_fruit = scan(fruit_string, 1, ",");
-
-  put fruit_string=;
-  put first_fruit=;
+  first_fruit = strip(scan(fruit_string, 1, ","));
 run;
-
 
 * split string on comma returning all elements ;
 data _null_;
   fruit_string = "apple, banana, carrot";
-
+  
   array fruits {3} $;
   do i = 1 to 3 ;
-  	fruits{i} = scan(fruit_string, i, ",");
+  	fruits{i} = strip(scan(fruit_string, i, ","));
   end;
-
-  put fruit_string=;
-  put fruits1=;
-  put fruits2=;
-  put fruits3=;
 run;
-
 
 * macro - split string on comma returning first element ;
 %macro first_fruit;
   %let fruit_string = apple, banana, carrot ;
   %let first_fruit = %trim(%left(%scan(%bquote(&fruit_string), 1, %str(,))));
-
-  %put &=fruit_string.;
-  %put &=first_fruit.;
 %mend;
 
 %first_fruit;
-
 
 * macro - split string on comma returning all elements ;
 %macro all_fruits;
   %let fruit_string = apple, banana, carrot ;
   %let fruit_cnt = %sysfunc(countw(%bquote(&fruit_string), %str(,)));
-
+  
   %do i = 1 %to &fruit_cnt.;
     %let fruits&i. = %trim(%left(%scan(%bquote(&fruit_string), &i., %str(,))));
   %end;
-
-
-  %put &=fruit_string.;
-  %put &=fruits1.;
-  %put &=fruits2.;
-  %put &=fruits3.;
 %mend;
 
 %all_fruits;
@@ -89,13 +69,20 @@ run;
 <TabItem value="py">
 
 ```py
-# placeholder
+# split string on comma returning first element
+fruit_string = "apple, banana, carrot"
+first_fruit = fruit_string.split(",")[0].strip()
+
+# split string on comma returning all elements
+fruit_string = "apple, banana, carrot"
+fruits = [s.strip() for s in fruit_string.split(",")]
 ```
 
 </TabItem>
 <TabItem value="r">
 
 ```r
+library(purrr)
 library(stringr)
 
 # split string on comma returning first element (using strsplit)
@@ -109,11 +96,13 @@ first_fruit <- stringr::str_split_n(fruit_string, ",", 1)
 
 # split string on comma returning all elements (using strsplit)
 fruit_string <- "apple, banana, carrot"
-first_fruit <- strsplit(fruit_string, ",", fixed = TRUE)[[1]]
+fruits <- strsplit(fruit_string, ",", fixed = TRUE)[[1]] %>%
+  purrr::map_chr(stringr::str_trim)
 
 # split string on comma returning all elements (using stringr)
 fruit_string <- "apple, banana, carrot"
-first_fruit <- stringr::str_split(fruit_string, ",")[[1]]
+fruits <- stringr::str_split(fruit_string, ",")[[1]] %>%
+  purrr::map_chr(stringr::str_trim)
 ```
 
 </TabItem>
