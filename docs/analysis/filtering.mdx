@@ -1,12 +1,12 @@
 ---
 id: filtering
 title: Filtering a Dataframe
-sidebar_label: Filtering a df
+sidebar_label: Filtering
 keywords:
   - analysis
 ---
 
-Filtering datframes / datasets &mdash; single boolean condition and multiple conditions.
+Filtering dataframes / datasets &mdash; single boolean condition and multiple conditions.
 
 Makes use of the [person](../gettingstarted/rowwiseinit) dataset / dataframe.
 
@@ -80,7 +80,7 @@ data sweet_tooth_older_ds2 ;
   if sweet_tooth="yes" and age > 20;
   
   * explicit ;
-  * if sweet_tooth="yes" then output;
+  * if sweet_tooth="yes" and age > 20 then output;
 run;
 
 * proc sql filtering ;
@@ -179,9 +179,9 @@ sweet_tooth_q = @from i in person begin
 end
 
 
-########################
-## multiple condition ##
-########################
+#########################
+## multiple conditions ##
+#########################
 
 # Query - stand alone
 sweet_tooth_older_sa = person |>
