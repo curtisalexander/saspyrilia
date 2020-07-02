@@ -1,0 +1,201 @@
+---
+id: selectcolumns
+title: Select columns from a dataframe
+sidebar_label: Select columns
+keywords:
+  - analysis
+  - dataframe
+---
+
+Filtering dataframes / datasets &mdash; single boolean condition and multiple conditions.
+
+Makes use of the [person](../gettingstarted/rowwiseinit) dataset / dataframe.
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<Tabs
+  defaultValue={(() => {
+    let langs = ['sas', 'py', 'r', 'julia'];
+    return(langs[Math.floor(Math.random()*langs.length)]);
+  })()}
+  values={[
+    { label: 'SAS', value: 'sas', },
+    { label: 'Python', value: 'py', },
+    { label: 'R', value: 'r', },
+    { label: 'Julia', value: 'julia', },
+  ]
+}>
+<TabItem value="sas">
+
+```sas
+**********************;
+** single condition **;
+**********************;
+
+* data step filtering ;
+data sweet_tooth_ds ;
+  set person(where=(sweet_tooth="yes")) ;
+run;
+
+* data step is an implicit loop over rows ;
+* implies the result of the conditional is an output statement ;
+* slower than the above ;
+data sweet_tooth_ds2 ;
+  set person ;
+  
+  * implicit ;
+  if sweet_tooth="yes";
+  
+  * explicit ;
+  * if sweet_tooth="yes" then output;
+run;
+
+* proc sql filtering ;
+proc sql noprint;
+  create table sweet_tooth_sql as
+  select *
+  from person
+  where sweet_tooth="yes"
+  ;
+quit;
+
+
+
+*************************;
+** multiple conditions **;
+*************************;
+
+* data step filtering ;
+data sweet_tooth_older_ds ;
+  set person(where=(sweet_tooth="yes" and age > 20)) ;
+run;
+
+* data step is an implicit loop over rows ;
+* implies the result of the conditional is an output statement ;
+* slower than the above ;
+data sweet_tooth_older_ds2 ;
+  set person ;
+  
+  * implicit ;
+  if sweet_tooth="yes" and age > 20;
+  
+  * explicit ;
+  * if sweet_tooth="yes" and age > 20 then output;
+run;
+
+* proc sql filtering ;
+proc sql noprint;
+  create table sweet_tooth_older_sql as
+  select *
+  from person
+  where sweet_tooth="yes"
+    and age > 20
+  ;
+quit;
+```
+
+</TabItem>
+<TabItem value="py">
+
+```py
+import pandas as pd
+
+######################
+## single condition ##
+######################
+
+# boolean expression
+sweet_tooth_bool = person[person['sweet_tooth']=="yes"]
+
+# query
+sweet_tooth_query = person.query('sweet_tooth=="yes"')
+
+
+
+##########################
+## multiples conditions ##
+##########################
+
+# boolean expression
+sweet_tooth_older_bool = person[(person['sweet_tooth']=="yes") & (person['age'] > 20)]
+
+# query
+sweet_tooth_older_query = person.query('sweet_tooth=="yes" & age > 20')
+```
+
+</TabItem>
+<TabItem value="r">
+
+```r
+library(dplyr)
+
+######################
+## single condition ##
+######################
+
+# base
+sweet_tooth_base <- person[person[["sweet_tooth"]] == "yes",]
+
+# dplyr
+sweet_tooth_dplyr <- person %>%
+  filter(sweet_tooth == "yes")
+
+
+
+#########################
+## multiple conditions ##
+#########################
+
+# base
+sweet_tooth_older_base <- person[person[["sweet_tooth"]] == "yes" &
+                                 person[["age"]] > 20,]
+
+# dplyr
+sweet_tooth_older_dplyr <- person %>%
+  filter(sweet_tooth == "yes",
+         age > 20)
+```
+
+</TabItem>
+<TabItem value="julia">
+
+```julia
+using DataFrames, Query
+
+######################
+## single condition ##
+######################
+
+# Query - stand alone
+sweet_tooth_sa = person |>
+    @filter(_.sweet_tooth=="yes") |>
+    DataFrame
+
+# Query - LINQ
+sweet_tooth_q = @from i in person begin
+    @where i.sweet_tooth=="yes"
+    @select i
+    @collect DataFrame
+end
+
+
+#########################
+## multiple conditions ##
+#########################
+
+# Query - stand alone
+sweet_tooth_older_sa = person |>
+    @filter(_.sweet_tooth=="yes" && _.age > 20) |>
+    DataFrame
+
+# Query - LINQ
+sweet_tooth_older_q = @from i in person begin
+    @where i.sweet_tooth=="yes" && i.age > 20
+    @select i
+    @collect DataFrame
+end
+```
+
+</TabItem>
+</Tabs>
