@@ -35,8 +35,9 @@ import TabItem from '@theme/TabItem';
 
 data name_treat ;
   set person(keep=name
-                  treat);
+                  fav_treat);
 run;
+
 
 
 *********;
@@ -46,10 +47,11 @@ run;
 proc sql noprint;
   create table name_treat2 as
   select  name
-         ,treat
+         ,fav_treat
   from person
   ;
 quit;
+
 
 
 ***********;
@@ -61,34 +63,76 @@ quit;
                     ,keeplist=) ;
 
   data &outds. ;
-    set &inds.(where=(&keeplist.));
+    set &inds.(keep=&keeplist.);
   run;
 %mend;
 
 %selectcolumns(inds=person
               ,outds=name_treat3
-              ,keeplist=%str(name treat));
+              ,keeplist=%str(name fav_treat));
 ```
 
 </TabItem>
 <TabItem value="py">
 
 ```py
-# python example
+import pandas as pd
+
+name_treat = person[["name", "fav_treat"]]
 ```
 
 </TabItem>
 <TabItem value="r">
 
 ```r
-# r example
+############
+## base R ##
+############
+
+name_treat <- person[,c("name", "fav_treat")]
+name_treat2 <- subset(person, select=c("name", "fav_treat"))
+
+
+
+###########
+## dplyr ##
+###########
+
+library(dplyr)
+
+name_treat3 <- person %>%
+  select(name,
+         fav_treat)
 ```
 
 </TabItem>
 <TabItem value="julia">
 
 ```julia
-# julia example
+using DataFrames, Query
+
+################
+## DataFrames ##
+################
+
+name_treat = select(person, :name, :fav_treat)
+
+
+
+###########
+## Query ##
+###########
+
+# Query - stand alone
+name_treat2 = person |>
+    @select(:name, :fav_treat) |>
+    DataFrame
+
+# Query - LINQ
+name_treat3 = @from i in person begin
+    @select {i.name, i.fav_treat}
+    @collect DataFrame
+end
 ```
 
 </TabItem>
