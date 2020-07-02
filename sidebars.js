@@ -12,6 +12,7 @@ module.exports = {
       label: 'Analysis',
       items: [
         'analysis/filtering',
+        'analysis/selectcolumns',
         'analysis/splitapplycombine',
       ]
     },
