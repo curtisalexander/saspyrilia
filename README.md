@@ -4,6 +4,11 @@
 
 This is the repository for [saspyrilia](https://www.saspyrilia.com).  The website is built using [Docusaurus 2](https://v2.docusaurus.io/), a modern static website generator.
 
+## Colophon
+For more information on how the website is built, see the [Colophon](https://www.saspyrilia.com/docs/colophon) page.
+
+## Development
+
 ### Installation
 
 ```
@@ -26,9 +31,6 @@ $ yarn build
 
 This command generates static content and places in the `build` directory and can be served using any static contents hosting service.
 
-### Deployment
+### Deploy
 
 Deploy to [Azure static hosting](https://docs.microsoft.com/en-us/azure/storage/blobs/storage-blob-static-website).
-
-### Colophon
-For more information on how the website is built, see the [Colophon](https://www.saspyrilia.com/docs/colophon) page.
