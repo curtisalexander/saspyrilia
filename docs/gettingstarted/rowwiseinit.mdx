@@ -16,7 +16,7 @@ import TabItem from '@theme/TabItem';
 
 <Tabs
   defaultValue={(() => {
-    let langs = ['sas', 'py', 'r', 'julia', 'bash'];
+    let langs = ['sas', 'py', 'r', 'julia', 'bash', 'powershell'];
     return(langs[Math.floor(Math.random()*langs.length)]);
   })()}
   values={[
@@ -26,6 +26,7 @@ import TabItem from '@theme/TabItem';
     { label: 'Julia', value: 'julia', },
     { label: 'SQL', value: 'sql', },
     { label: 'Bash', value: 'bash', },
+    { label: 'PowerShell', value: 'powershell', },
   ]
 }>
 <TabItem value="sas">
@@ -128,6 +129,25 @@ name,fav_fruit_veg,fav_treat,sweet_tooth,age
 "Ezekiel","elderberry","elderberry tart","no",4,
 "Frances","fig","fig bars","no",34
 EOF
+```
+
+</TabItem>
+
+<TabItem value="powershell">
+
+```powershell
+$person = @"
+ name, fav_fruit_veg, fav_treat, sweet_tooth, age
+ Alice, apple, apple pie, yes, 10
+ Balin,  banana,  bananas foster,  yes, 53
+ Cal, carrot, carrot cake, no, 34
+ Dara, dates, doughnut, yes, 83
+ Ezekiel, elderberry, elderberry tart, no, 4
+ Frances, fig, fig bars, no, 34
+"@ | ConvertFrom-Csv
+
+# pretty print
+$person | Format-Table
 ```
 
 </TabItem>
