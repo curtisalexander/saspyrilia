@@ -11,6 +11,7 @@ module.exports = {
       type: 'category',
       label: 'Analysis',
       items: [
+        'analysis/derivevars',
         'analysis/filtering',
         'analysis/selectcolumns',
         'analysis/splitapplycombine',
