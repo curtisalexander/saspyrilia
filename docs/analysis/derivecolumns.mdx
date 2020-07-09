@@ -33,14 +33,14 @@ import TabItem from '@theme/TabItem';
 ** constant / static value **;
 *****************************;
 
-data person2;
+data hungry;
   set person;
   
   hungry = "yes";
 run;
 
 proc sql noprint;
-  create table person2b as
+  create table hungryb as
   select  *
          ,"yes" as hungry
   from person
@@ -53,7 +53,7 @@ quit;
 ** derive value **;
 ******************;
 
-data person3;
+data hungry2;
   set person;
   
   if sweet_tooth = "yes" and
@@ -62,7 +62,7 @@ data person3;
 run;
 
 proc sql noprint;
-  create table person3b as
+  create table hungry2b as
   select  *
          ,case
             when sweet_tooth = "yes" and
@@ -78,102 +78,21 @@ quit;
 <TabItem value="py">
 
 ```py
-import pandas as pd
-
-######################
-## single condition ##
-######################
-
-# boolean expression
-sweet_tooth_bool = person[person['sweet_tooth']=="yes"]
-
-# query
-sweet_tooth_query = person.query('sweet_tooth=="yes"')
-
-
-
-##########################
-## multiples conditions ##
-##########################
-
-# boolean expression
-sweet_tooth_older_bool = person[(person['sweet_tooth']=="yes") & (person['age'] > 20)]
-
-# query
-sweet_tooth_older_query = person.query('sweet_tooth=="yes" & age > 20')
+# placeholder
 ```
 
 </TabItem>
 <TabItem value="r">
 
 ```r
-library(dplyr)
-
-######################
-## single condition ##
-######################
-
-# base
-sweet_tooth_base <- person[person[["sweet_tooth"]] == "yes",]
-
-# dplyr
-sweet_tooth_dplyr <- person %>%
-  filter(sweet_tooth == "yes")
-
-
-
-#########################
-## multiple conditions ##
-#########################
-
-# base
-sweet_tooth_older_base <- person[person[["sweet_tooth"]] == "yes" &
-                                 person[["age"]] > 20,]
-
-# dplyr
-sweet_tooth_older_dplyr <- person %>%
-  filter(sweet_tooth == "yes",
-         age > 20)
+# placeholder
 ```
 
 </TabItem>
 <TabItem value="julia">
 
 ```julia
-using DataFrames, Query
-
-######################
-## single condition ##
-######################
-
-# Query - stand alone
-sweet_tooth_sa = person |>
-    @filter(_.sweet_tooth=="yes") |>
-    DataFrame
-
-# Query - LINQ
-sweet_tooth_q = @from i in person begin
-    @where i.sweet_tooth=="yes"
-    @select i
-    @collect DataFrame
-end
-
-
-#########################
-## multiple conditions ##
-#########################
-
-# Query - stand alone
-sweet_tooth_older_sa = person |>
-    @filter(_.sweet_tooth=="yes" && _.age > 20) |>
-    DataFrame
-
-# Query - LINQ
-sweet_tooth_older_q = @from i in person begin
-    @where i.sweet_tooth=="yes" && i.age > 20
-    @select i
-    @collect DataFrame
-end
+# placeholder
 ```
 
 </TabItem>
