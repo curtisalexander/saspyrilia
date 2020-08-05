@@ -13,7 +13,7 @@ module.exports = {
         alt: 'saspyrilia logo',
         src: 'img/saspyrilia-logo.jpg',
       },
-      links: [
+      items: [
         {
           to: 'docs/welcome',
           activeBasePath: 'docs',
