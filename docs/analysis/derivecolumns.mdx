@@ -110,14 +110,48 @@ person["hungry"] = person.apply(sweet_tooth_and_vowel, axis=1)
 <TabItem value="r">
 
 ```r
-# placeholder
+library(dplyr)
+library(magrittr)
+
+#############################
+## constant / static value ##
+#############################
+
+# new copy
+hungry <- person %>%
+  mutate(hungry = "yes")
+
+# in-place
+person %<>%
+  mutate(hungry = "yes")
+
+
+
+##################
+## derive value ##
+##################
+
+# new copy
+hungry <- person %>%
+  mutate(hungry = case_when(
+    (sweet_tooth == "yes") & (name %>% substr(., 1, 1) %>% tolower() %in% c("a", "e", "i", "o", "u")) ~ "yes",
+    TRUE ~ "no"
+  ))
 ```
 
 </TabItem>
 <TabItem value="julia">
 
 ```julia
-# placeholder
+using DataFrames, Query
+
+#############################
+## constant / static value ##
+#############################
+
+# new copy
+# using Query - stand alone
+
 ```
 
 </TabItem>
