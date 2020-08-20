@@ -19,6 +19,9 @@
     "react": "^16.8.4",
     "react-dom": "^16.8.4"
   },
+  "resolutions": {
+    "prismjs": "1.2.0"
+  },
   "browserslist": {
     "production": [
       ">0.2%",
