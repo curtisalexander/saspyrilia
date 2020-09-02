@@ -73,7 +73,7 @@ library(dplyr)
 sweet_tooth_by_age <- person %>%
   group_by(sweet_tooth) %>%
   summarise(age_cnt = n(),
-            age_mean = mean(age),
+            age_avg = mean(age),
             .groups = "keep")
 ```
 
