@@ -65,7 +65,7 @@ module.exports = {
     },
     announcementBar: {
       id: 'wip',
-      content: 'This site is brand new and still a work in progress 🚧.',
+      content: 'This site is slowly being built 🏗️ and still a work in progress 🚧.',
       backgroundColor: '#fafbfc',  // Defaults to `#fff`
       textColor: '#091E42',  // Defaults to `#000`
     }

@@ -18,7 +18,7 @@ import TabItem from '@theme/TabItem';
 
 <Tabs
   defaultValue={(() => {
-    let langs = ['sas', 'py', 'r', 'julia', 'bash', 'powershell'];
+    let langs = ['sas', 'py', 'r', 'julia', 'bash', 'nushell', 'powershell', 'sql'];
     return(langs[Math.floor(Math.random()*langs.length)]);
   })()}
   values={[
@@ -26,9 +26,10 @@ import TabItem from '@theme/TabItem';
     { label: 'Python', value: 'py', },
     { label: 'R', value: 'r', },
     { label: 'Julia', value: 'julia', },
-    { label: 'SQL', value: 'sql', },
     { label: 'Bash', value: 'bash', },
+    { label: 'Nushell', value: 'nushell', },
     { label: 'PowerShell', value: 'powershell', },
+    { label: 'SQL', value: 'sql', },
   ]
 }>
 <TabItem value="sas">
@@ -62,7 +63,7 @@ person = pd.DataFrame(
         ("Balin", "banana", "bananas foster", "yes", 53),
         ("Cal", "carrot", "carrot cake", "no", 34),
         ("Dara", "dates", "doughnut", "yes", 83),
-        ("Ezekiel", "elderberry", "elderberry tart", "no",4),
+        ("Ezekiel", "elderberry", "elderberry tart", "no", 4),
         ("Frances", "fig", "fig bars", "no", 34),
     ],
     columns=("name", "fav_fruit_veg", "fav_treat", "sweet_tooth", "age"),
@@ -117,10 +118,46 @@ end
 
 <TabItem value="sql">
 
+First, create the file `saspyrilia.sql`.
+
 ```sql
--- placeholder for inserting values using sqlite
+create table person (
+name varchar(10),
+fav_fruit_veg varchar(20),
+fav_treat varchar(20),
+sweet_tooth varchar(3),
+age integer
+)
+;
+
+insert into person (
+name,
+fav_fruit_veg,
+fav_treat,
+sweet_tooth,
+age
+)
+values
+('Alice', 'apple', 'apple pie', 'yes', 10),
+('Balin', 'banana', 'bananas foster', 'yes', 53),
+('Cal', 'carrot', 'carrot cake', 'no', 34),
+('Dara', 'dates', 'doughnut', 'yes', 83),
+('Ezekiel', 'elderberry', 'elderberry tart', 'no', 4),
+('Frances', 'fig', 'fig bars', 'no', 34)
+;
 ```
 
+Next, the actual database is created by running the following.
+
+```bash
+sqlite3 saspyrilia.db < saspyrilia.sql
+```
+
+Finally, to validate, run the following.
+
+```bash
+sqlite3 saspyrilia.db -header -column "select * from person;"
+```
 </TabItem>
 
 <TabItem value="bash">
@@ -156,6 +193,21 @@ $person = @"
 
 # pretty print
 $person | Format-Table
+```
+
+</TabItem>
+
+<TabItem value="nushell">
+
+```bash
+echo [[name fav_fruit_veg fav_treat sweet_tooth age];
+    ["Alice" "apple" "apple pie" "yes" 10]
+    ["Balin" "banana" "bananas foster" "yes" 53]
+    ["Cal" "carrot" "carrot cake" "no" 34]
+    ["Dara" "dates" "doughnut" "yes" 83]
+    ["Ezekiel"  "elderberry"  "elderberry tart"  "no" 4]
+    ["Frances" "fig" "fig bars" "no" 34]
+] | to csv | save person.csv
 ```
 
 </TabItem>
