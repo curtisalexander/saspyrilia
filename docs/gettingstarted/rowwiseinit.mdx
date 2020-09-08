@@ -149,13 +149,13 @@ values
 ;
 ```
 
-Next, the actual database is created by running the following.
+Next, the actual database (and table with values) is created by running the following.
 
 ```bash
 sqlite3 saspyrilia.db < saspyrilia.sql
 ```
 
-Finally, to validate, run the following.
+Finally, to validate run the following.
 
 ```bash
 sqlite3 saspyrilia.db -header -column "select * from person;"
