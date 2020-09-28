@@ -42,6 +42,7 @@ module.exports = {
       type: 'category',
       label: 'Wrangling',
       items: [
+        'wrangling/cleanupcolnames',
         'wrangling/stringsplitting'
       ]
     },

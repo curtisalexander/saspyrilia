@@ -1,0 +1,114 @@
+---
+id: cleanupcolnames
+title: Cleanup column names
+sidebar_label: Cleanup cols
+keywords:
+  - dataframe
+---
+
+Cleanup column names.  Below is an example that utilizes regular expressions to correct the following within column names:
+- mixed case
+- spaces embedded
+- spaces prefixed
+
+The result are column names that are all lower case, have embedded spaces replaced with underscores, and strip any spaces that are prefixed.
+
+
+- Split and return first element
+- Split and return all elements
+
+In addition, strip whitespace after splitting.
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<Tabs
+  defaultValue={(() => {
+    let langs = ['sas', 'py', 'r', 'julia'];
+    return(langs[Math.floor(Math.random()*langs.length)]);
+  })()}
+  values={[
+    { label: 'SAS', value: 'sas', },
+    { label: 'Python', value: 'py', },
+    { label: 'R', value: 'r', },
+    { label: 'Julia', value: 'julia', },
+  ]
+}>
+<TabItem value="sas">
+
+:::info
+The SAS example makes use of the Lua language.  SAS is a [system of languages](../../blog/whatissas) and its bindings to Lua are one such example.
+:::
+
+```sas
+* placeholder
+```
+
+</TabItem>
+<TabItem value="py">
+
+```py
+import pandas as pd
+import re
+
+df = pd.DataFrame(
+    [
+        (1, 2, 3, 4),
+        (5, 6, 7, 8)
+    ],
+    columns=("a", "col with   space", " col_with_ws_prefix", "COLwithMIXEDCaSE")
+)
+
+# rename all columns using function provided
+def rename_cols(df, f):
+    return df.rename(columns = lambda x: f(x))
+
+# function to use on an individual column name
+def string_to_lower_and_ws_cleaned_up(x):
+    return re.sub(r" +", "_", x.lower().strip())
+
+# apply
+# results in new dataframe rather than changing in place
+df_clean = rename_cols(df, string_to_lower_and_ws_cleaned_up)
+```
+
+</TabItem>
+<TabItem value="r">
+
+```r
+library(dplyr)
+library(purrr)
+library(stringr)
+library(tibble)
+
+df <- tibble::tribble(
+  ~a, ~`col with   space`, ~` col_with_ws_prefix`, ~COLwithMIXEDCaSE,
+  1, 2, 3, 4,
+  5, 6, 7, 8,
+)
+
+# rename all columns using function provided
+rename_cols <- function(df, f) {
+  colnames <- dplyr::tbl_vars(df)
+  colnames_renamed <- purrr::map(colnames, ~ f(.x)) %>% purrr::flatten_chr()
+  dplyr::rename_all(df, ~ colnames_renamed)
+}
+
+# function to use on an individual column name
+string_to_lower_and_ws_cleaned_up <- function(x) {
+  tolower(x) %>% stringr::str_trim() %>% stringr::str_replace_all(" +", "_")
+}
+
+df_clean <- df %>%
+  rename_cols(string_to_lower_and_ws_cleaned_up)
+```
+
+</TabItem>
+<TabItem value="julia">
+
+```julia
+# placeholder
+```
+
+</TabItem>
+</Tabs>
