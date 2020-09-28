@@ -56,6 +56,7 @@ module.exports = {
       additionalLanguages: [
         'bash',
         'julia',
+        'lua',
         'powershell',
         'python',
         'r',

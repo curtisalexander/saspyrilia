@@ -31,32 +31,22 @@ import TabItem from '@theme/TabItem';
 <TabItem value="sas">
 
 :::info
-The SAS example makes use of the Lua language.  SAS is a [system of languages](../../blog/whatissas) and its bindings to Lua are one such example.
+The SAS example makes use of the Lua language.  SAS is an [agglomeration of languages](../../blog/whatissas) and its [bindings to Lua](https://documentation.sas.com/?docsetId=proc&docsetTarget=n1csk38ocks0rgn1rr8d302ofqgs.htm&docsetVersion=9.4&locale=en) are one such example.
 :::
 
-```sas
-data ds;
-input a 'col with   space'n ' col_with_ws_prefix'n 'COLwithMIXEDCaSE'n;
-datalines4;
-1 2 3 4
-5 6 7 8
-;;;;
-run;
+This example begins with the Lua function `rename_cols` saved within in its own file.
 
-* utilize proc lua to rename all columns ;
-* creates and then calls function for renaming columns ;
-* function call is hard-coded within proc lua ;
-* if preferred, could modularize by saving lua function in a separate file (and module) ;
-proc lua restart;
-submit;
+```lua title="/some/path/to/lua/utils.lua"
+local module = {}
 
---- Rename columns by making all column names lowercase, stripping whitespace, and replacing spaces with underscores
+--- Rename columns by making all column names lowercase, stripping whitespace, and
+--- replacing spaces with underscores
 -- @param inlib
 -- @param inds
 -- @param outlib
 -- @param outds
 -- @param inplace
-rename_cols = function(inlib, inds, outlib, outds, inplace)
+module.rename_cols = function(inlib, inds, outlib, outds, inplace)
   local dsid = sas.open(inlib .. '.' .. inds)
   local renameList = ''
   
@@ -95,14 +85,47 @@ rename_cols = function(inlib, inds, outlib, outds, inplace)
   end
 end
 
+return module
+```
+
+Next, within SAS the Lua module is brought into scope and then the function `rename_cols` is called.
+
+```sas
+data ds;
+input a 'col with   space'n ' col_with_ws_prefix'n 'COLwithMIXEDCaSE'n;
+datalines4;
+1 2 3 4
+5 6 7 8
+;;;;
+run;
+
+* setup filepath to the directory containing the Lua file named utils.lua ;
+filename luapath ("/some/path/to/lua") ;
+
+* utilize proc lua to rename all columns ;
+* brings the Lua function to rename columns into scope ;
+* function call is hard-coded within proc lua - it could reference external macro variables if ;
+*   it is preferred to pass data into proc lua ;
+proc lua restart;
+submit;
+
+-- Bring into scope
+utils = require("utils")
+
 -- Function call
-rename_cols('work', 'ds', 'work', 'ds_clean', false)
+utils.rename_cols('work', 'ds', 'work', 'ds_clean', false)
 
 endsubmit;
 run;
 
 * view table metadata ;
-proc sql;  select * from dictionary.columns where upcase(libname) = "WORK" and upcase(memname) = "DS_CLEAN"; quit;
+proc sql;
+  select *
+  from dictionary.columns
+  where upcase(libname) = "WORK"
+    and upcase(memname) = "DS_CLEAN"
+  ;
+quit;
 ```
 
 </TabItem>
