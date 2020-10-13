@@ -14,13 +14,13 @@ For more information on how the website is built, see the [Colophon](https://www
 #### Build
 
 ```sh
-docker-compose build
+docker build --tag saspyrilia .
 ```
 
 #### Run
 
 ```sh
-docker-compose up -d
+./saspyrilia-startup.sh
 ```
 
 ### No Docker
