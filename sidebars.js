@@ -11,10 +11,17 @@ module.exports = {
       type: 'category',
       label: 'Analysis',
       items: [
-        'analysis/derivecolumns',
         'analysis/filtering',
-        'analysis/selectcolumns',
         'analysis/splitapplycombine',
+      ]
+    },
+    {
+      type: 'category',
+      label: 'Dataframes',
+      items: [
+        'dataframes/cleanupcolnames',
+        'dataframes/derivecolumns',
+        'dataframes/selectcolumns',
       ]
     },
     {
@@ -42,7 +49,6 @@ module.exports = {
       type: 'category',
       label: 'Wrangling',
       items: [
-        'wrangling/cleanupcolnames',
         'wrangling/stringsplitting'
       ]
     },

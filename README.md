@@ -9,13 +9,29 @@ For more information on how the website is built, see the [Colophon](https://www
 
 ## Development
 
-### Installation
+### Docker
+
+#### Build
+
+```sh
+docker-compose build
+```
+
+#### Run
+
+```sh
+docker-compose up -d
+```
+
+### No Docker
+
+#### Installation
 
 ```
 $ yarn install
 ```
 
-### Local Development
+#### Local Development
 
 ```
 $ yarn start
@@ -23,7 +39,7 @@ $ yarn start
 
 This command starts a local development server and opens up a browser window. Most changes are reflected live without having to restart the server.
 
-### Build
+#### Build
 
 ```
 $ yarn build
@@ -31,6 +47,7 @@ $ yarn build
 
 This command generates static content and places in the `build` directory and can be served using any static contents hosting service.
 
-### Deploy
+
+## Deploy
 
 Deploy to [Azure static hosting](https://docs.microsoft.com/en-us/azure/storage/blobs/storage-blob-static-website).
