@@ -1,9 +1,12 @@
 #!/usr/bin/env bash
 
+WORKDIR="app"
+
 # docker run
 docker run -d \
            -p 3000:3000 \
            -p 35729:35729 \
+           --mount "type=bind,src=${PWD}/blog,dst=/app"
            -v $(pwd)/blog:/app/blog \
            -v $(pwd)/docs:/app/docs \
            -v $(pwd)/src:/app/src \
