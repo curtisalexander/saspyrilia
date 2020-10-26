@@ -5,7 +5,7 @@ WORKDIR="app"
 # docker run
 docker run --rm \
            --name saspyrilia \
-           -d \
+           -it \
            -p 3000:3000 \
            -p 35729:35729 \
            --mount "type=bind,src=${PWD}/blog,dst=/app/blog" \

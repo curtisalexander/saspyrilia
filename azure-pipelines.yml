@@ -29,7 +29,8 @@ steps:
   displayName: 'Install Node.js'
 
 - script: |
-    yarn install --frozen-lockfile
+    # yarn install --frozen-lockfile
+    yarn install
   displayName: 'Run yarn install'
 
 - script: |
