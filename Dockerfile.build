@@ -1,0 +1,7 @@
+FROM node:alpine AS build-stage
+WORKDIR /app
+COPY package.json /app/package.json
+RUN yarn install
+
+FROM scratch AS export-stage
+COPY --from=build-stage /app/yarn.lock /
