@@ -12,13 +12,13 @@ For more information on how the website is built, see the [Colophon](https://www
 ### Docker
 
 #### Build
-Build to produce yarn.lock
+Build to produce `yarn.lock`
 
 ```sh
 DOCKER_BUILDKIT=1 docker build --file Dockerfile.build --output type=local,dest=. .
 ```
 
-Run
+Build to produce image to run as a container
 ```sh
 docker build --tag saspyrilia --file Dockerfile.run .
 ```
