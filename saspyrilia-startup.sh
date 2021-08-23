@@ -15,7 +15,6 @@ docker run --rm \
            --mount "type=bind,src=${PWD}/babel.config.js,dst=/app/babel.config.js" \
            --mount "type=bind,src=${PWD}/docusaurus.config.js,dst=/app/docusaurus.config.js" \
            --mount "type=bind,src=${PWD}/sidebars.js,dst=/app/sidebars.js" \
-           --mount "type=bind,src=${PWD}/yarn.lock,dst=/app/yarn.lock" \
            saspyrilia
 
 # pause so that the app can start
