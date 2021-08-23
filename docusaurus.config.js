@@ -3,6 +3,8 @@ module.exports = {
   tagline: 'Technical notes for working with data',
   url: 'https://saspyrilia.com',
   baseUrl: '/',
+  onBrokenLinks: 'throw',
+  onBrokenMarkdownLinks: 'warn',
   favicon: 'img/saspyrilia-favicon.ico',
   organizationName: 'curtisalexander', // Usually your GitHub org/user name.
   projectName: 'saspyrilia', // Usually your repo name.
@@ -45,7 +47,7 @@ module.exports = {
     footer: {
       style: 'dark',
       links: [],
-      copyright: `Copyright © ${new Date().getFullYear()} Curtis Alexander<br/>Built with Docusaurus`,
+      copyright: `Copyright © 2020-${new Date().getFullYear()} Curtis Alexander<br/>Built with Docusaurus`,
     },
     prism: {
       // https://github.com/FormidableLabs/prism-react-renderer/tree/master/src/themes
@@ -53,13 +55,17 @@ module.exports = {
       // theme: require('prism-react-renderer/themes/nightOwl'),
       // theme: require('prism-react-renderer/themes/palenight'),
       theme: require('prism-react-renderer/themes/vsDark'),
+      // languages: https://prismjs.com/#supported-languages
       additionalLanguages: [
         'bash',
+        'fsharp',
         'julia',
         'lua',
         'powershell',
         'python',
+        'q',
         'r',
+        'rust',
         'sas',
         'sql'
       ]
@@ -78,7 +84,7 @@ module.exports = {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
           editUrl:
-            'https://github.com/curtisalexander/saspyrilia/edit/master/',
+            'https://github.com/curtisalexander/saspyrilia/edit/main/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
