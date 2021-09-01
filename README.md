@@ -1,6 +1,6 @@
 # saspyrilia
 
-[![Build Status](https://dev.azure.com/curtisalexander/saspyrilia/_apis/build/status/curtisalexander.saspyrilia?branchName=maian)](https://dev.azure.com/curtisalexander/saspyrilia/_build/latest?definitionId=7&branchName=main)
+[![Build Status](https://dev.azure.com/curtisalexander/saspyrilia/_apis/build/status/curtisalexander.saspyrilia?branchName=main)](https://dev.azure.com/curtisalexander/saspyrilia/_build/latest?definitionId=7&branchName=main)
 
 This is the repository for [saspyrilia](https://www.saspyrilia.com).  The website is built using [Docusaurus 2](https://v2.docusaurus.io/), a modern static website generator.
 
